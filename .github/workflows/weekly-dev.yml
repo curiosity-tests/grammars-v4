@@ -1,10 +1,28 @@
 name: Weekly Dev Build
+run-name: "Weekly Dev Build ${{ inputs.leg || github.event_name }} ${{ inputs.racecar_run }}"
 
 on:
   schedule:
     - cron: '0 9 * * 1'   # every Monday at 09:00 UTC (staggered from weekly-jar at 03:00)
   workflow_dispatch:        # allow manual triggering
+    inputs:
+      leg:
+        description: "baseline (uninstrumented) or instrumented (under chalk/curiosity)"
+        type: choice
+        options: [instrumented, baseline]
+        default: baseline
+      profile:
+        description: "CrashOverride chalk profile"
+        type: string
+        default: curiosity-tests-racecar
+      racecar_run:
+        description: "racecar correlation token, echoed into the run name"
+        type: string
+        default: ""
 
+
+env:
+  CHALK_ON: ${{ inputs.leg == 'instrumented' }}
 # Use for testing.
 #on:
 #  push:
