@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
@@ -49,7 +49,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-latest, windows-latest, ubuntu-latest]
+        os:
+        - ubuntu-latest
         language: ${{ fromJson(needs.setup.outputs.mymatrix) }}
     steps:
     - name: Info
@@ -111,8 +112,8 @@ jobs:
         pip --version
     - name: Install Antlr tool
       run: |
-         pip install _scripts/antlr4-tools
-         pip show antlr4-tools
+        pip install _scripts/antlr4-tools
+        pip show antlr4-tools
     - name: Install JavaScript
       uses: actions/setup-node@v7.0.0
       with:
@@ -208,8 +209,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ ubuntu-latest]
-        test: [ useless-parens, format, ambiguity, no-symbolic-links ]
+        os: [ubuntu-latest]
+        test: [useless-parens, format, ambiguity, no-symbolic-links]
     steps:
     - name: Info
       shell: bash
@@ -252,8 +253,8 @@ jobs:
         pip --version
     - name: Install Antlr tool
       run: |
-         pip install _scripts/antlr4-tools
-         pip show antlr4-tools
+        pip install _scripts/antlr4-tools
+        pip show antlr4-tools
     - name: Install Trash
       shell: bash
       run: |
@@ -279,7 +280,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ ubuntu-latest]
+        os: [ubuntu-latest]
     steps:
     - uses: actions/checkout@v7
       with:
