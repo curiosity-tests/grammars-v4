@@ -2,8 +2,6 @@ name: Weekly Dev Build
 run-name: "Weekly Dev Build ${{ inputs.leg || github.event_name }} ${{ inputs.racecar_run }}"
 
 on:
-  schedule:
-  - cron: '0 9 * * 1'     # every Monday at 09:00 UTC (staggered from weekly-jar at 03:00)
   workflow_dispatch:        # allow manual triggering
     inputs:
       leg:
